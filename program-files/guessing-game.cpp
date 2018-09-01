@@ -6,7 +6,7 @@ int main() {
   return playGame();
 }
 
-int mainplayGame() {
+int playGame() {
   // Set up
   int answer = getRandomInt(100, true);
   int guess = -1; // Outside range, so the guess can't randomly be correct before they even make one
@@ -65,7 +65,24 @@ int mainplayGame() {
 	 << "It took took you " << guessCount << " whole tries to guess " << answer << ". Cool." <<end1;
     break;
   case 3:
-    cout << "Oh yeah, I'm supposed to be either pushing or committing frequenty, and this is such a small project I should probably do that right now."
+    if (guessCount > 7) {
+      cout << "You got it! I think you can work on your strategy, though." << endl
+	   << "That took you " << guessCount << " tries to guess " << answer << ", after all.";
+    } else {
+      cout << "You got it! And either you're pretty lucky, or you've worked with data before. Nice eitherway!" << endl
+	   << "Took you only " << guessCount << " tries to guess " << answer << "." << endl;
+    }
+    break;
+  }
+
+  // Ask for play again. If yes, just return the new method,
+  //   as a value of 1 would eventually be returned to 1 in the event of "return 1;" being called.
+  cout << "Play again? (y/n)" << endl;
+  char input = 0;
+  input << cin;
+  input = char(tolower(int(input))); // Not sure if casting from char to int in implicit in c++
+  if (input == 'y') return playGame();
+  else return 0;
         
   return 0;
 }
