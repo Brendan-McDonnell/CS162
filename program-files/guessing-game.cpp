@@ -2,6 +2,37 @@
 
 using namespace std;
 
+int displayGuessBar(int guesses[50], int answer) {
+  int guessSpace[100];
+  for (int i = 0; i < 100; i++) {
+    guessSpace[i] = 0; // Manually filling with zero because I don't know if there's a better way
+  }
+  for (int i = 0; i < 50; i++) { // Guesses has a length of 50
+    if (guesses[i] != 0) { // Guess exists
+      guessSpace[guesses[i]] = 1; // Fill every guessed location with a 1
+    }
+  }
+  cout << endl;
+  
+  char output[102];
+  output[0] = '[';
+  output[101] = ']';
+  for (int i = 1; i < 101; i++) { // Between brackets
+    if (guessSpace[i] != 0) { // Guess has been made
+      if (i < answer) {
+	output[i] = '<';
+      } else if (i > answer) {
+	output[i] = '>';
+      } else {
+	output[i] = '=';
+      }
+    } else { // No guess
+      output[i] = '.';
+    }
+  }
+
+  cout << output << endl;
+}
 
 int getGuess() {
   int guess;
@@ -24,16 +55,28 @@ int playGame() {
   int answer = getRandomInt(100, true);
   int guess = -1; // Outside range, so the guess can't randomly be correct before they even make one
   int guessCount = 0;
-
+  int guesses[50];
+  for (int i = 0; i < 50; i++) {
+    guesses[i] = 0;
+  }
+  
   // Start game
   cout << endl;
   cout << "A random number between zero and one hundred (inclusive) has been generated." << endl
        << "Your job? You need to guess what that number is. I'll help you out, don't worry." << endl;
   guess = getGuess();
+  guesses[guessCount] = guess; // not guessCount++ because guessCount not yet incremented
   guessCount++;
   while(guess != answer) {
     // Give response
     cout << endl;
+
+    // If game going too long
+    if (guessCount >= 50) {
+      cout << "Sorry, I'm going to cut you off here. You've taken 50 guesses and not gotten the answer!" << endl
+	   << "That's so disgraceful I suggest that you not try this program again. Goodbye." << endl;
+    }
+    
     int responsePicker = -1;
     responsePicker = getRandomInt(3, true);
     switch(responsePicker) {
@@ -65,12 +108,15 @@ int playGame() {
 
     // Get next guess
     cout << endl;
+    displayGuessBar(guesses, answer);
     guess = getGuess();
+    guesses[guessCount] = guess; // not guessCount++ because guessCount not yet incremented
     guessCount++;
   } // end of guessing for loop
 
   // Left for loop. Therefore, guess is correct.
   cout << endl;
+  displayGuessBar(guesses, answer);
   int responsePicker = -1;
   responsePicker = getRandomInt(3, true);
   switch (responsePicker) {
@@ -98,21 +144,25 @@ int playGame() {
   // Ask for play again. If yes, just return the new method,
   //   as a value of 1 would eventually be returned to 1 in the event of "return 1;" being called.
   cout << endl;
-  char input = 0;
+  char input = 'a';
+  bool inputGiven = false;
   while (!(input == 'y' || input == 'n')) {
-    input = 0;
-    cout << "Play again? (y/n)" << endl;
-    cin >> input;
-    input = char(tolower(int(input))); // Not sure if casting from char to int in implicit in c++
+    //if (!inputGiven) {
+      cout << endl << "Play again? (y/n)" << endl;
+      cin.get();
+      cin.get(input);
+      cin.clear();
+      cin.ignore(10000, '\n'); // Skip any characters beyond the first
+      input = tolower(input);
+      //      inputGiven = true;
+      //}
     if (input == 'y') {
-      cout << "Okay!" << endl;
       return playGame();
-    }
-    else if (input == 'n') {
+    } else if (input == 'n') {
       cout << endl << "See you later!" << endl;
-      return 0;
     } else {
-      cout << endl << "Please either input \"y\" or \"n\". Thank you," << endl;
+      cout << "Please input either \"y\" or \"n\"." << endl;
+      //inputGiven = false;
     }
   }
   return 1; // Line should never be reached
