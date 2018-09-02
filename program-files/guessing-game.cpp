@@ -1,8 +1,15 @@
+/*
+  Created by Brendan McDonnell on 9/1/2018
+
+  "Guessing Game" is a school project that generates a random number and 
+  lets the user guess their way to the correct answer with some guiding help.
+ */
+
 #include <iostream>
 
 using namespace std;
 
-int displayGuessBar(int guesses[50], int answer) {
+void displayGuessBar(int guesses[50], int answer) {
   int guessSpace[100];
   for (int i = 0; i < 100; i++) {
     guessSpace[i] = 0; // Manually filling with zero because I don't know if there's a better way
