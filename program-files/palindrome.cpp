@@ -19,7 +19,7 @@ bool isAlphanumeric(char in) {
 }
 
 int main() {
-  bool bugTesting = true;
+  bool bugTesting = false;
   
   char inputStr[80];
   char cleanStr[80];
@@ -30,6 +30,7 @@ int main() {
   
   // Get input
   memset(inputStr, 0x00, 80); // Fill with null values
+  cout << "Input the string you wish to test." << endl;
   cin.get(inputStr, 80);
   cin.clear();
   cin.ignore(10000, '\n');
