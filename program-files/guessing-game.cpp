@@ -42,9 +42,12 @@ void displayGuessBar(int guesses[50], int answer) {
 }
 
 int getGuess() {
-  int guess;
+  int guess = -1;
   cout << "What is your guess?" << endl;
   cin >> guess;
+  // cin.get(guess, 3);
+  cin.clear();
+  cin.ignore(10000, '\n');
   return guess;
 }
 
@@ -156,7 +159,6 @@ int playGame() {
   while (!(input == 'y' || input == 'n')) {
     //if (!inputGiven) {
       cout << endl << "Play again? (y/n)" << endl;
-      cin.get();
       cin.get(input);
       cin.clear();
       cin.ignore(10000, '\n'); // Skip any characters beyond the first
@@ -167,6 +169,7 @@ int playGame() {
       return playGame();
     } else if (input == 'n') {
       cout << endl << "See you later!" << endl;
+      return 0;
     } else {
       cout << "Please input either \"y\" or \"n\"." << endl;
       //inputGiven = false;
