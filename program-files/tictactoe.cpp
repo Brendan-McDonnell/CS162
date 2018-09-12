@@ -5,6 +5,10 @@ using namespace std;
 
 // Prototypes
 void printBoard(char** b);
+int getInput();
+int intToRow(int a);
+int intToCol(int a);
+
 
 // Main method
 int main() {
@@ -21,7 +25,10 @@ int main() {
   }
 
   printBoard(ptrBoard);
+  int input = getInput();
 
+  cout << intToRow(input) << ", " << intToCol(input) << endl;
+  
   return 0;
 }
 
@@ -60,4 +67,25 @@ void printBoard(char** b) {
   output[index++] = '\n';
   
   cout << output << endl;
+}
+
+int getInput() {
+  char input[3] = { 0 };
+  
+  cout << "What is your move? (column row)" << endl;
+  cin.get(input, 2);
+  cin.clear();
+  cin.ignore(10000, '\n');
+
+  tolower(input[0]);
+  
+  return 3 * (input[1] - 'a') + input[0];
+}
+
+int intToRow(int a) {
+  return a - (a % 3) / 3;
+}
+
+int intToCol(int a) {
+  return a % 3;
 }
