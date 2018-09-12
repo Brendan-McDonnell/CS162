@@ -29,27 +29,35 @@ int main() {
 
 void printBoard(char** b) {
   cout << endl << endl;
-  char output[22];
+  char output[34];
   memset(output, 0x00, 34);
   
   int index = 0;
   for (int row = 0; row < 3; row++) {
     for (int col = 0; col < 3; col++) {
-      if (col == 0) {
-	output[index++] = b[row][col];
-	output[index++] = '\t';
-      }
-      else if (col == 1) {
-	output[index++] = b[row][col];
-	output[index++] = '\t';
-      }
-      else if (col == 2) {
-	output[index++] = b[row][col];
-	output[index++] = '\n';
-	output[index++] = '\n';
+       if (col == 0) {
+         output[index++] = b[row][col];
+         output[index++] = '\t';
+       }
+       else if (col == 1) {
+         output[index++] = b[row][col];
+         output[index++] = '\t';
+       }
+       else if (col == 2) {
+         output[index++] = b[row][col];
+         output[index++] = '\t';
+         output[index++] = row + '0';
+         output[index++] = '\n';
+         output[index++] = '\n';
       }
     }
   }
+  output[index++] = 'A';
+  output[index++] = '\t';
+  output[index++] = 'B';
+  output[index++] = '\t';
+  output[index++] = 'C';
+  output[index++] = '\n';
   
   cout << output << endl;
 }
