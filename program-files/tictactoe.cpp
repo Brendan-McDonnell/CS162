@@ -26,8 +26,8 @@ int main() {
 
   printBoard(ptrBoard);
   int input = getInput();
-
-  cout << intToRow(input) << ", " << intToCol(input) << endl;
+  cout << input << endl;
+  cout << intToCol(input) << ", " << intToRow(input) << endl;
   
   return 0;
 }
@@ -71,21 +71,34 @@ void printBoard(char** b) {
 
 int getInput() {
   char input[3] = { 0 };
-  
-  cout << "What is your move? (column row)" << endl;
-  cin.get(input, 2);
+  int output = -1;
+
+  // Get input
+  cout << "What is your move? (e.g C2)" << endl;
+  cin.get(input, 3);
   cin.clear();
   cin.ignore(10000, '\n');
 
-  tolower(input[0]);
-  
-  return 3 * (input[1] - 'a') + input[0];
-}
+  // Validate input
+  if (!((input[0] >= 'A' && input[0] <= 'C') ||
+	(input[0] >= 'a' && input[0] <= 'c') &&
+	(input[1] >= '0' && input[1] <= '2'))) {
+    cout << endl << "Invalid input. Please try again." << endl << endl;
+    return getInput();
+  }
 
-int intToRow(int a) {
-  return a - (a % 3) / 3;
+  // Convert to single number
+  int col = tolower(input[0]) - 'a';
+  int row = input[1] - '0';
+  output = 3 * row + col;
+  
+  return output;
 }
 
 int intToCol(int a) {
   return a % 3;
+}
+
+int intToRow(int a) {
+  return (a - (a % 3)) / 3;
 }
