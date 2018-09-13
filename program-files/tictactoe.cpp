@@ -13,26 +13,18 @@ int intToCol(int a);
 // Main method
 int main() {
 
-  char** ptrBoard = new char*[3];
-  for (int i = 0; i < 3; i++) {
-    ptrBoard[i] = new char[3];
-  }
+  vector<int> board;
+  vector<int>::iterator it;
 
-  for (int i = 0; i < 3; i++) {
-    for (int j = 0; j < 3; j++) {
-      ptrBoard[i][j] = '.';
-    }
-  }
-
-  printBoard(ptrBoard);
-  int input = getInput();
-  cout << input << endl;
-  cout << intToCol(input) << ", " << intToRow(input) << endl;
+  
   
   return 0;
 }
 
 // Methods
+
+int isWin() {
+  
 
 void printBoard(char** b) {
   cout << endl << endl;
