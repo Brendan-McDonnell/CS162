@@ -12,19 +12,30 @@ int intToCol(int a);
 
 // Main method
 int main() {
-
-  vector<int> board;
-  vector<int>::iterator it;
-
-  
-  
-  return 0;
+  return playGame();
 }
 
 // Methods
 
+int playGame() {
+  bool xTurn = true;
+  vector<int> board;
+  vector<int>::iterator it;
+
+  while (!isWin(board)) {
+    printBoard(board);
+    char turnChar = xTurn ? 'X' : 'O';
+    cout << endl << "It's " << turnChar << "'s turn." << endl;
+    board.pushBack(getInput(xTurn));
+  }
+  endGame(isWin(board));
+  
+  return checkReplay();
+}
+
 int isWin() {
   
+}
 
 void printBoard(char** b) {
   cout << endl << endl;
@@ -61,7 +72,7 @@ void printBoard(char** b) {
   cout << output << endl;
 }
 
-int getInput() {
+int getInput(bool xTurn) {
   char input[3] = { 0 };
   int output = -1;
 
@@ -83,6 +94,8 @@ int getInput() {
   int col = tolower(input[0]) - 'a';
   int row = input[1] - '0';
   output = 3 * row + col;
+
+  if (!xTurn) output += 10;
   
   return output;
 }
