@@ -77,10 +77,10 @@ void endGameOutput(int winner, int &xWins, int &oWins) {
 
   ifstream winsFile("winsRecord");
   if (winsFile.is_open()) {
-    
+
   } else {
     cout << endl << "There was an error with retrieving previous session data" << endl;
-  }
+    
 }
 
 /** Returns the next game's value to main.
