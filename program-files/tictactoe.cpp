@@ -8,33 +8,90 @@ void printBoard(char** b);
 int getInput();
 int intToRow(int a);
 int intToCol(int a);
-
+int isWin(const vector<int> &board);
+void endGameOutput(int winner, int &xWins, int &oWins);
+int endGame(int xWins, int oWins);
 
 // Main method
 int main() {
-  return playGame();
+  return playGame(0, 0);
 }
 
 // Methods
 
-int playGame() {
+/** Starts a new game and handles and controls game logic */
+int playGame(int xWins, int oWins) {
   bool xTurn = true;
   vector<int> board;
   vector<int>::iterator it;
 
-  while (!isWin(board)) {
+  while (!isWin(&board)) {
     printBoard(board);
     char turnChar = xTurn ? 'X' : 'O';
     cout << endl << "It's " << turnChar << "'s turn." << endl;
     board.pushBack(getInput(xTurn));
   }
-  endGame(isWin(board));
+  endGameOutput(isWin(&board));
   
-  return checkReplay();
+  return endGame();
 }
 
-int isWin() {
+/** Evaluates board and returns:
+      0: Game not over
+      1: X won
+      2: O won
+      3: Tie game
+*/
+int isWin(const vector<int> &board) { // Using const to prevent modification
   
+}
+
+void endGameOutput(int winner, int &xWins, int &oWins) {
+  // For each case, output the winner, wins this session, total wins
+  cout << endl;
+  switch (winner) {
+  case 1: // X Won
+    xWins++;
+    cout << "X won the game!" << endl;
+    cout << "In this session, X has won " << xWins << " times and O has won "
+	 << oWins << " times." << endl;
+    // Output overall wins
+    break;
+  case 2: // O Won
+    oWins++;
+    cout << "O won the game!" << endl;
+    cout << "In this session, X has won " << xWins << " times and O has won "
+	 << oWins << " times." << endl;
+    // Output overall wins
+    break;
+  case 3:
+    // Tie game
+    cout << "Tie game!" << endl;
+    cout << "In this session, X has won " << xWins << " times and O has won "
+	 << oWins << " times." << endl;
+    break;
+  }
+}
+
+/** Returns the next game's value to main.
+    Checks if playing again and updates files if necessary */
+int endGame(int xWins, int oWins) {
+  char input[2];
+  cout << endl << "Would you like to play again? (y/n)" << endl;
+  cin.get(input, 2);
+  cin.clear();
+  cin.ignore(10000, '\n');
+  
+  if (tolower(input[0]) == 'y') { 
+    return playGame();
+  }
+  else if (tolower(input[0] == 'n')) {
+    return 0;
+  }
+  else {
+    cout << "Oops! Invalid input. Let's try that again!" << endl;
+    return endGame();
+  }
 }
 
 void printBoard(char** b) {
