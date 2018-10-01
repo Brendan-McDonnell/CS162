@@ -64,7 +64,7 @@ int main() {
   if (bugTesting) cout << "Converted to lowercase: " << cleanStr << endl;
 
   // Reverse string
-  memset(revStr, 0x00, n);
+  memset(revStr, 0x00, n + 1);
   for (int i = 0; i < n; i++) {
     revStr[i] = cleanStr[n - 1 - i];
   }
