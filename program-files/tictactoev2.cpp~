@@ -1,0 +1,25 @@
+#include <iostream>
+#include <cstring>
+
+using namespace std;
+
+const char BLANK = '.';
+const char X = 'X';
+const char O = 'O';
+
+int main() {
+  bool turn = 0;
+  char board[3][3] {
+    {BLANK,BLANK,BLANK},
+      {BLANK,BLANK,BLANK},
+	{BLANK,BLANK,BLANK}
+  };
+  
+  do {
+    printBoard(board);
+    int input = getInput();
+    char move = turn ? X : O;
+    board[intToCol(input)][intToCol(
+  } while (1); // while !checkwin
+  
+}
