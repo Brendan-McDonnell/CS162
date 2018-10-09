@@ -1,0 +1,18 @@
+#include <iostream>
+
+using namespace std;
+
+/** Prototypes */
+
+/** Global Data */
+struct Student {
+  char firstName[80] = { 0 };
+}
+
+/** Methods */
+
+int main() {
+  Student p1 = Student();
+  cout << p1.firstName << endl;
+  return 0;
+}
