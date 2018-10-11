@@ -2,6 +2,7 @@
 #include <cstring>
 #include <vector>
 #include <cmath>
+#include <algorithm>
 
 using namespace std;
 
@@ -32,8 +33,8 @@ int main() {
   for(;;) {
     // Get input command
     cout << endl << "Enter a command. Use HELP for more details." << endl;
-    char input[6] = { 0 };
-    memset(input, 0x00, 6);
+    char input[7] = { 0 };
+    memset(input, 0x00, 7);
     cin.get(input, 7);
     cin.clear();
     cin.ignore(10000, '\n');   
@@ -68,22 +69,88 @@ int main() {
     }
     else if (!strcmp(input, "PRINT")) {
       cout << "************ PRINT ************" << endl;
-      cout << "---" << endl;
-      for (vector<Student*>::iterator it = studentList -> begin();
-	   it < studentList -> end();
-	   it++) {
-	printStudent(*it);
+      if (studentList -> size() < 1)
+	cout << "No students to print." << endl;
+      else {
+	cout << "---" << endl;
+	for (vector<Student*>::iterator it = studentList -> begin();
+	     it < studentList -> end();
+	     it++) {
+	  printStudent(*it);
+	}
       }
       cout << "*******************************" << endl;
     }
-    else if (!strcmp(input, "SORT")) {
+    else if (!strcmp(input, "SORT")) { // Selection sort
       cout << "************ SORT *************" << endl;
-      cout << "What would you like to sort the students by?" << endl
-	   << "1: First name" << endl
-	   << "2: Last name" << endl
-	   << "3: ID number" << endl
-	   << "4: GPA" << endl;
+      int input;
+      do {
+	cout << "What would you like to sort the students by?" << endl
+	     << "1: First name" << endl
+	     << "2: Last name" << endl
+	     << "3: ID number" << endl
+	     << "4: GPA" << endl;
+	input = -1;
+	cin >> input;
+	cin.clear();
+	cin.ignore(10000, '\n');
+	if (input < 1 || input > 4)
+	  cout << "Invalid input. Please try again." << endl << endl;
+      } while (input < 1 || input > 4);
       
+      
+      vector<Student*>::iterator minPtr;
+      for (vector<Student*>::iterator it1 = studentList -> begin();
+	   it1 < studentList -> end();
+	   it1++) { // determines start of unsorted subarray (subarray before is sorted)
+	// Get minimum element from rest of unsorted subarray
+	minPtr = it1;
+	for (vector<Student*>::iterator it2 = it1;
+	     it2 < studentList -> end();
+	     it2++) {
+	  switch (input) {
+	  case 1: // First name
+	    if (strcmp((*it2) -> firstName, (*minPtr) -> firstName) < 0)
+	      minPtr = it2;
+	    break;
+	  case 2: // Last name
+	    if (strcmp((*it2) -> lastName, (*minPtr) -> lastName) < 0)
+	      minPtr = it2;
+	    break;
+	  case 3: // ID number
+	    if ((*it2) -> id < (*minPtr) -> id)
+	      minPtr = it2;
+	    break;
+	  case 4: // GPA
+	    if ((*it2) -> gpa < (*minPtr) -> gpa)
+	      minPtr = it2;
+	    break;
+	  default:
+	    cout << "Input validation error has occurred." << endl;
+	    break;
+	  }
+	}
+
+	iter_swap(minPtr, it1);
+      }
+
+      cout << "Students sorted by ";
+      switch (input) {
+      case 1:
+	cout << "first name.";
+	break;
+      case 2:
+	cout << "last name.";
+	break;
+      case 3:
+	cout << "ID number.";
+	break;
+      case 4:
+	cout << "GPA.";
+	break;
+      }
+      cout << endl;
+      cout << "******************************" << endl;
     }
     else if (!strcmp(input, "DELETE")) {
       cout << "************ DELETE ************" << endl;
@@ -128,7 +195,7 @@ int main() {
       return 0;
     }
     else {
-      cout << "Command not recognized, please try again." << endl;
+      cout << "Command (\"" << input << "\") not recognized, please try again." << endl;
     }
   }
 }
