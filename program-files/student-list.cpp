@@ -33,11 +33,10 @@ int main() {
   for(;;) {
     // Get input command
     cout << endl << "Enter a command. Use HELP for more details." << endl;
-    char input[7] = { 0 };
-    memset(input, 0x00, 7);
-    cin.get(input, 7);
+    char* input;
+    cin.getline(input, 256);
     cin.clear();
-    cin.ignore(10000, '\n');   
+    //cin.ignore(10000, '\n');   
     strcpy(input, shortenCString(input));
 
     /* COMMANDS
@@ -218,21 +217,37 @@ char* shortenCString(char* arr) {
 
 Student* addStudent() {
   Student* output = new Student();
-  
+  bool valid = false;
+
   cout << "What is the new student's first name?" << endl;
   cin.get(output -> firstName, 50);
   cin.clear();
   cin.ignore(10000, '\n');
+  
   cout << "What is the new student's last name?" << endl;
   cin.get(output -> lastName, 50);
   cin.clear();
   cin.ignore(10000, '\n');
-  cout << "What is the new student's ID number?" << endl;
-  char input[7];
-  cin.get(input, 7);
-  output -> id = strToInt(input, 6);
-  cin.clear();
-  cin.ignore(10000, '\n');
+
+  do {
+    cout << "What is the new student's ID number?" << endl;
+    char input[6];
+    cin.get(input, 7);
+    cin.clear();
+    cin.ignore(10000, '\n');
+
+    if (strlen(input) == 6) {
+      for (int i = 0; i < 6; i++)
+	if (input[i] >= '0' && input[i] <= '9')
+	  valid = true;
+    }
+    if (valid) {
+      output -> id = strToInt(input, 6);
+    }
+    else
+      cout << "Invalid input. Please use a 6-digit number for the ID." << endl;
+  } while(!valid);
+
   cout << "What is the new student's GPA?" << endl;
   cin >> output -> gpa;
 
@@ -248,7 +263,7 @@ int strToInt(char* arr, int len) {
 }
 
 void printStudent(Student* student) {
-  cout << "Name: " << student -> firstName << " " << student -> lastName << endl;
+  cout << "Name: " << student -> lastName << ", " << student -> firstName << endl;
   cout << "ID: " << student -> id << endl;
   cout << "GPA: " << student -> gpa << endl;
   cout << "---" << endl;
