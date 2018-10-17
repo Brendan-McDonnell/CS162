@@ -3,6 +3,7 @@
 #include <vector>
 #include <cmath>
 #include <algorithm>
+#include <iomanip>
 
 using namespace std;
 
@@ -220,12 +221,16 @@ Student* addStudent() {
   bool valid = false;
 
   cout << "What is the new student's first name?" << endl;
-  cin.get(output -> firstName, 50);
+  char input[50];
+  cin.get(input, 51);
+  strcpy(output -> firstName, input);
   cin.clear();
   cin.ignore(10000, '\n');
+  memset(input, 0, 51);
   
   cout << "What is the new student's last name?" << endl;
-  cin.get(output -> lastName, 50);
+  cin.get(input, 51);
+  strcpy(output -> lastName, input);
   cin.clear();
   cin.ignore(10000, '\n');
 
@@ -264,6 +269,8 @@ int strToInt(char* arr, int len) {
 
 void printStudent(Student* student) {
   cout << "Name: " << student -> lastName << ", " << student -> firstName << endl;
+  cout << fixed;
+  cout << setprecision(2);
   cout << "ID: " << student -> id << endl;
   cout << "GPA: " << student -> gpa << endl;
   cout << "---" << endl;
