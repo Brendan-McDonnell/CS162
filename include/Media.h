@@ -11,12 +11,13 @@
 #include <iostream>
 
 class Media {
-
-  friend std::ostream& operator<<(std::ostream& os, const Media& media);
   
  public:
+  // Default constructor
+  Media();
+
   // Constructor
-  Media(char* newtitle, int titleSize, int newyear);
+  Media(char* newtitle, int newyear);
 
   // Copy Contructor
   Media(const Media& source);
@@ -25,16 +26,20 @@ class Media {
   Media& operator=(const Media& source);
 
   // Deconstructor
-  ~Media();
+  virtual ~Media();
   
+  // Overloaded insert operator
+  friend std::ostream& operator<<(std::ostream& os, const Media& movie);
+
   // Getters
   char* getTitle();
-  int getTitleSize();
   int getYear();
 
- private:
+  // Methods
+  virtual int getType();
+
+ protected:
   char* title;
-  int titleSize;
   int year;
   
 };

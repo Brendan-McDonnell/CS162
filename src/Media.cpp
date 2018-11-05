@@ -11,8 +11,14 @@
 
 using namespace std;
 
+// Default constructor
+Media::Media() {
+  title = new char(0x00);
+  year = -1;
+}
+
 // Constructor
-Media::Media(char* newtitle, int titleSize, int newyear) {
+Media::Media(char* newtitle, int newyear) {
   title = newtitle;
   year = newyear;
 }
@@ -26,8 +32,10 @@ Media::Media(const Media& source) {
 
 // Overloaded Assignment Operator
 Media& Media::operator=(const Media& source) {
+  if (this == &source) return *this;
   year = source.year;
   strcpy(title, source.title); // (ptr, val)
+  return *this;
 }
 
 // Destructor
@@ -36,10 +44,10 @@ Media::~Media() {
 }
 
 // Overloaded Insert Operator (friend)
-ostream& operator<<(ostream& os, const Media& media) {
+ostream& operator<<(ostream& os, const Media& source) {
   os << "----- MEDIA -----" << endl
-     << "Title: " << media.title << endl
-     << "Year: " << media.year << endl
+     << "Title: " << source.title << endl
+     << "Year: " << source.year << endl
      << "-----------------" << endl;
   return os;
 }
@@ -47,6 +55,7 @@ ostream& operator<<(ostream& os, const Media& media) {
 // Getters
 char* Media::getTitle() { return title; }
 
-int Media::getTitleSize() { return titleSize; }
-
 int Media::getYear() { return year; }
+
+// Methods
+int Media::getType() { return 0; }
