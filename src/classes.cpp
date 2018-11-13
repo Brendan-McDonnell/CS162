@@ -72,7 +72,7 @@ int main() {
 	foundMedia = searchMedia(data, getInput());
       } else { // Year
 	cout << "What is the year you would like to search for?" << endl;
-	getInput(intInput);
+	while(!getInput(intInput)) cout << "Invalid input. Please try again.";
 	foundMedia = searchMedia(data, intInput);
       }
 
@@ -119,17 +119,19 @@ int main() {
 	   it != data.end();
 	   it++)
 	delete *it;
+      return 0;
     }
     else cout << "Command not recognized. Please try again." << endl;
     cout << endl; // Spacing after each command handle or error
   }
 
-  // Garbage collection
+  // This code should never be run, but if it is garbage is collected before exit
   for (vector<Media*>::iterator it = data.begin();
        it != data.end();
        it++) {
     delete *it; // Remove all stored elements from heap
   }
+  return 1;
 }
 
 char* getInput() {
@@ -151,12 +153,6 @@ bool getInput(int& a) {
     if (arr[i] < '0' || arr[i] > '9') return false;
   }
   a = cstringToInt(arr);
-  return true;
-  
-  int n = strlen(arr);
-  for (int i = n - 1; i >= 0; i--) {
-    a += (arr[i] - '0') * pow(10, n - (i + 1));
-  }
   delete[] arr;
   return true;
 }
@@ -168,21 +164,28 @@ bool getInput(char*& a) {
 
 bool getInput(float& a) {
   a = 0.0;
-  return true;
-  // TODO: FINISH FLOAT GETINPUT FUNCTION
   char* arr = getInput();
-  for (unsigned int i = 0; i < sizeof(arr); i++) {
+  int n = strlen(arr);
+  
+  for (int i = 0; i < n; i++) {
     if (!(arr[i] >= '0' && arr[i] <= '9') && arr[i] != '.') return false;
   }
-  
-  a = 0;
-  
-  for (unsigned int i = 0; i < sizeof(arr); i++) {
 
-  }
+  int periodPosition = -1;
+  for (int i = 0; i < n; i++) if (arr[i] == '.') periodPosition = i;
+  char* intComponent = new char[periodPosition + 1]; // -1 for size, +1 for next after period
+  char* decComponent = new char[n - 1 - periodPosition];
+  memcpy(intComponent, arr, periodPosition);
+  intComponent[periodPosition] = 0;
+  memcpy(decComponent, arr + periodPosition + 1, n - 1 - periodPosition);
+
+  a += cstringToInt(intComponent);
+  a += float(cstringToInt(decComponent)) / float(pow(10, strlen(decComponent)));
   
-  delete arr;
-  return true;
+  delete[] arr;
+  delete[] intComponent;
+  delete[] decComponent;
+  return a;
 }
 
 int cstringToInt(char* arr) {
@@ -301,8 +304,6 @@ vector<Media*> searchMedia(vector<Media*> data, char* title, int year, bool sear
        it++) {
     if (!searchByYear) { // title
       if (!strcmp((*it)->getTitle(), title)) {
-	cout << *((*it)->getTitle()) << endl;
-	cout << *title << endl;
 	found.push_back(*it);
       }
     } else // year
