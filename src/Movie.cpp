@@ -52,7 +52,8 @@ ostream& operator<<(ostream& os, const Movie& source) {
      << "Director: " << source.director << endl
      << "Duration: " << source.duration << endl
      << "Rating: " << source.rating << endl
-     << "-----------------" << endl;
+     << "-----------------" << endl
+     << endl;
   return os;
 }
 
@@ -70,6 +71,15 @@ int Movie::getRating() {
 }
 
 // Methods
-int Movie::getType() {
-  return 3;
+Media::MediaType Movie::getType() { return MediaType::MOVIE; }
+
+void Movie::print() {
+  cout << "----- MOVIE -----" << endl
+       << "Title: " << title << endl
+       << "Year: " << year << endl
+       << "Director: " << director << endl
+       << "Duration: " << duration << endl
+       << "Rating: " << rating << endl
+       << "-----------------" << endl
+       << endl;
 }

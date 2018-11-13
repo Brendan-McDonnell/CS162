@@ -13,6 +13,8 @@
 class Media {
   
  public:
+  enum class MediaType { MEDIA, VIDEO_GAME, MUSIC, MOVIE };
+  
   // Default constructor
   Media();
 
@@ -29,14 +31,19 @@ class Media {
   virtual ~Media();
   
   // Overloaded insert operator
-  friend std::ostream& operator<<(std::ostream& os, const Media& movie);
+  friend std::ostream& operator<<(std::ostream& os, const Media& media);
 
   // Getters
-  char* getTitle();
-  int getYear();
+  virtual char* getTitle();
+  virtual int getYear();
+  virtual char* getDirector();
+  virtual float getDuration();
+  virtual int getRating();
+  virtual char* getArtist();
 
   // Methods
-  virtual int getType();
+  virtual Media::MediaType getType();
+  virtual void print();
 
  protected:
   char* title;

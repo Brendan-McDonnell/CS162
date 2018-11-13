@@ -34,7 +34,8 @@ public:
   int getRating();
 
   // Methods
-  int getType();
+  Media::MediaType getType();
+  void print();
   
 private:
   char* publisher;

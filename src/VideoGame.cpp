@@ -64,4 +64,14 @@ int VideoGame::getRating() {
 }
 
 // Methods
-int VideoGame::getType() { return 1; }
+Media::MediaType VideoGame::getType() { return MediaType::VIDEO_GAME; }
+
+void VideoGame::print() {
+  cout << "----- VIDEOGAME -----" << endl
+     << "Title: " << title << endl
+     << "Year: " << year << endl
+     << "Publisher: " << publisher << endl
+     << "Rating: " << rating << endl
+     << "---------------------" << endl
+     << endl;
+}

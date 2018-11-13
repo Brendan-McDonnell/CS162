@@ -44,6 +44,7 @@ Media::~Media() {
 }
 
 // Overloaded Insert Operator (friend)
+// DEPRECIATED
 ostream& operator<<(ostream& os, const Media& source) {
   os << "----- MEDIA -----" << endl
      << "Title: " << source.title << endl
@@ -57,5 +58,22 @@ char* Media::getTitle() { return title; }
 
 int Media::getYear() { return year; }
 
+char* Media::getDirector() { return nullptr; }
+
+float Media::getDuration() { return 0; }
+
+int Media::getRating() { return 0; }
+
+char* Media::getArtist() { return nullptr; }
+
+
 // Methods
-int Media::getType() { return 0; }
+Media::MediaType Media::getType() { return MediaType::MEDIA; }
+
+void Media::print() {
+  cout << "----- MEDIA -----" << endl
+       << "Title: " << title << endl
+       << "Year: " << year << endl
+       << "-----------------" << endl
+       << endl;
+}

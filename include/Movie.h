@@ -34,7 +34,8 @@ class Movie : public Media {
   int getRating();
 
   // Methods
-  int getType();
+  Media::MediaType getType();
+  void print();
   
  private:
   char* director;

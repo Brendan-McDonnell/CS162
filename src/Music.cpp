@@ -73,4 +73,15 @@ float Music::getDuration() {
 }
 
 // Methods
-int Music::getType() { return 2; }
+Media::MediaType Music::getType() { return MediaType::MUSIC; }
+
+void Music::print() {
+  cout << "----- MUSIC -----" << endl
+     << "Title: " << title << endl
+     << "Year: " << year << endl
+     << "Publisher: " << publisher << endl
+     << "Artist: " << artist << endl
+     << "Duration: " << duration << endl
+     << "----------------" << endl
+     << endl;
+}
