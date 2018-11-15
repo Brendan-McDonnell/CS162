@@ -10,9 +10,13 @@
 
 #include <iostream>
 
+/*
+ * Media is treated as a interface for dynamic polymorphism
+ */
 class Media {
   
  public:
+  // Contains all derived classes for getType() functionality
   enum class MediaType { MEDIA, VIDEO_GAME, MUSIC, MOVIE };
   
   // Default constructor

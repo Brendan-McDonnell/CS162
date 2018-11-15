@@ -19,14 +19,14 @@ Media::Media() {
 
 // Constructor
 Media::Media(char* newtitle, int newyear) {
-  title = newtitle;
+  title = new char(0);
+  strcpy(title, newtitle);
   year = newyear;
 }
 
 // Copy Constructor
 Media::Media(const Media& source) {
   year = source.year;
-  title = new char;
   strcpy(title, source.title); // (ptr, val)
 }
 

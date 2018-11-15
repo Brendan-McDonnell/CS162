@@ -12,15 +12,19 @@ using namespace std;
 
 // Constructor
 Movie::Movie(char* newtitle, int newyear, char* newdirector, float newduration, int newrating) {
-  title = newtitle;
+  director = new char(0);
+  strcpy(title, newtitle);
+  delete[] newtitle;
+  strcpy(director, newdirector);
+  delete[] director;
   year = newyear;
-  director = newdirector;
   duration = newduration;
   rating = newrating;
 }
 
 // Copy Constructor
 Movie::Movie(const Movie& source) {
+  director = new char(0);
   strcpy(title, source.title);
   strcpy(director, source.director);
   year = source.year;

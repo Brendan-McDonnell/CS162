@@ -12,14 +12,18 @@ using namespace std;
 
 // Constructor
 VideoGame::VideoGame(char* newtitle, int newyear, char* newpublisher, float newrating) {
-  title = newtitle;
+  publisher = new char(0);
+  strcpy(title, newtitle);
+  strcpy(publisher, newpublisher);
+  delete[] newtitle;
+  delete[] newpublisher;
   year = newyear;
-  publisher = newpublisher;
   rating = newrating;
 }
 
 // Copy Constructor
 VideoGame::VideoGame(const VideoGame& source) {
+  publisher = new char(0);
   strcpy(title, source.title);
   strcpy(publisher, source.publisher);
   year = source.year;

@@ -12,15 +12,25 @@ using namespace std;
 
 // Constructor
 Music::Music(char* newtitle, int newyear, char* newpublisher, char* newartist, float newduration) {
-  title = newtitle;
+  strcpy(title, newtitle);
+  delete[] newtitle;
+
+  publisher = new char(0);
+  strcpy(publisher, newpublisher);
+  delete[] newpublisher;
+
+  artist = new char(0);
+  strcpy(artist, newartist);
+  delete[] newartist;  
+
   year = newyear;
-  publisher = newpublisher;
-  artist = newartist;
   duration = newduration;
 }
 
 // Copy Constructor
 Music::Music(const Music& source) {
+  publisher = new char(0);
+  artist = new char(0);
   strcpy(title, source.title);
   strcpy(publisher, source.publisher);
   strcpy(artist, source.artist);

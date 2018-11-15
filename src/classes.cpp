@@ -21,8 +21,6 @@ vector<Media*> searchMedia(vector<Media*>, char*);
 vector<Media*> searchMedia(vector<Media*>, int);
 vector<Media*> searchMedia(vector<Media*>, char*, int, bool);
 
-// Global constants
-
 // Functions
 
 int main() {
@@ -65,12 +63,12 @@ int main() {
       cout << "0: Title" << endl;
       cout << "1: Year" << endl;
       int intInput = -1;
-      while (!getInput(intInput)) cout << "Invalid input. Please try again." << endl;
+      while (!getInput(intInput) && (intInput == 0 || intInput == 1)) cout << "Invalid input. Please try again." << endl; // Loops until valid input
 
-      if (!intInput) { // Title
+      if (!intInput) { // 0: Title
 	cout << "What is the title you would like to search for?" << endl;
 	foundMedia = searchMedia(data, getInput());
-      } else { // Year
+      } else { // 1: Year
 	cout << "What is the year you would like to search for?" << endl;
 	while(!getInput(intInput)) cout << "Invalid input. Please try again.";
 	foundMedia = searchMedia(data, intInput);
@@ -87,7 +85,7 @@ int main() {
     }
     else if (!strcmp(commandInput, "DELETE")) {
       cout << endl;
-      cout << "******* DELETE *******" << endl;
+      cout << "******* DELETE *******" << endl; // Follows same code as SEARCH with different end behaviour
       vector<Media*> foundMedia;
       cout << "What would you like to use to search for the media to delete?" << endl;
       cout << "0: Title" << endl;
@@ -115,6 +113,7 @@ int main() {
       cout << "**********************" << endl;
     }
     else if (!strcmp(commandInput, "QUIT")) {
+      // Collect garbage
       for (vector<Media*>::iterator it = data.begin();
 	   it != data.end();
 	   it++)
@@ -134,6 +133,9 @@ int main() {
   return 1;
 }
 
+/*
+ * Returns a dynamically allocated, any-size character array from user input
+ */
 char* getInput() {
   vector<char> vec;
   char in;
@@ -146,6 +148,9 @@ char* getInput() {
   return out;
 }
 
+/*
+ * Converts character array input into a single integer
+ */
 bool getInput(int& a) {
   char* arr = getInput();
   a = 0;
@@ -157,11 +162,17 @@ bool getInput(int& a) {
   return true;
 }
 
+/*
+ * Base getInput() but by reference
+ */
 bool getInput(char*& a) {
   a = getInput();
   return true;
 }
 
+/*
+ * Converts character array input into a float
+ */
 bool getInput(float& a) {
   a = 0.0;
   char* arr = getInput();
@@ -188,6 +199,9 @@ bool getInput(float& a) {
   return a;
 }
 
+/*
+ * Converts passed character array into an integer
+ */
 int cstringToInt(char* arr) {
   int a = 0;
   int n = strlen(arr);
@@ -197,6 +211,9 @@ int cstringToInt(char* arr) {
   return a;
 }
 
+/*
+ * Builds media based on user input and returns it
+ */
 Media* addMedia() {
   Media* newMedia = nullptr;
   
@@ -279,7 +296,7 @@ Media* addMedia() {
     break;
   default:
     cout << "An unknown error occured with handling your input. Exiting 'ADD' command." << endl;
-    return nullptr;
+    return nullptr; // Error occurred
   }
 
   cout << "Media '" << newMedia->getTitle() <<"' was successfully created." << endl;
@@ -287,15 +304,24 @@ Media* addMedia() {
 }
 
 
-
+/*
+ * Calls search with title argument
+ */
 vector<Media*> searchMedia(vector<Media*> data, char* title) {
   return searchMedia(data, title, 0, false);
 }
 
+/*
+ * Calls search with year argument
+ */
 vector<Media*> searchMedia(vector<Media*> data, int year) {
   return searchMedia(data, nullptr, year, true);
 }
 
+/* 
+ * Finds Media* matching inputed title or year (depending on bool searchByYear)
+ *  and returns  vector containing the matching Media*
+ */
 vector<Media*> searchMedia(vector<Media*> data, char* title, int year, bool searchByYear) {
   vector<Media*> found;
   
