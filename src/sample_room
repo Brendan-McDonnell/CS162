@@ -1,0 +1,24 @@
+ROOM
+START
+	
+	NAME
+		Living room
+	
+	DESCRIPTION
+		A place where people sit and not interact.
+	
+	EXITS
+	START
+		NORTH, room1
+		EAST, room2
+		SOUTH, room3
+		WEST, room4
+	END
+	
+	INVENTORY
+	START
+		Gem
+		Wooden Sword
+	END
+
+END

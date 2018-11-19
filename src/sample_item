@@ -1,0 +1,24 @@
+ITEM
+START
+	NAME
+		Gem
+	
+	DESCRIPTION
+		It sparkles... I wonder how many people have died to win this?
+	
+	WORTH
+		500
+END
+
+ITEM
+START
+	
+	NAME
+		Wooden Sword
+	
+	DESCRIPTION
+		This is so incredibly useless, but at least its something!
+	
+	WORTH
+		50
+END
