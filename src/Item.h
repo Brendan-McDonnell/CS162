@@ -18,44 +18,25 @@ public:
 	Item(char* newname);
 	Item(char* newname, char* newdescription);
 	Item(char* newname, char* newdescription, int newworth, int newquantity);
-	Item(Item& source);
+	Item(const Item& source);
 	Item& operator=(const Item& source);
 	virtual ~Item();
 
 	friend std::ostream& operator<<(std::ostream& os, const Item& source);
 
+	void incrementQuantity();
+	void decrementQuantity();
+	void incrementQuantity(int amount);
+
 	// Getters and Setters
-	char* getDescription() const {
-		return description;
-	}
-
-	void setDescription(char* description) {
-		strcpy(this->description, description);
-	}
-
-	char* getName() const {
-		return name;
-	}
-
-	void setName(char* name) {
-		strcpy(this->name, name);
-	}
-
-	int getWorth() const {
-		return worth;
-	}
-
-	void setWorth(int worth) {
-		this->worth = worth;
-	}
-
-	int getQuantity() const {
-		return quantity;
-	}
-
-	void setQuantity(int quantity) {
-		this->quantity = quantity;
-	}
+	char* getDescription() const;
+	void setDescription(char* description);
+	char* getName() const;
+	void setName(char* name);
+	int getWorth() const;
+	void setWorth(int worth);
+	int getQuantity() const;
+	void setQuantity(int quantity);
 
 private:
 	char* name;

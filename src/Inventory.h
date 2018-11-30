@@ -19,10 +19,11 @@ public:
 	Inventory(int gold);
 	Inventory(std::vector<Item*> newitems);
 	Inventory(std::vector<Item*> newitems, int newgold);
-	Inventory(Inventory& source);
+	Inventory(const Inventory& source);
 	Inventory& operator=(const Inventory& source);
 	virtual ~Inventory();
 
+	int count();
 	void removeGold(int amount);
 	void addGold(int amount);
 	void addItem(Item* item);
@@ -30,21 +31,10 @@ public:
 	void removeItem(Item* item);
 	void clearItems();
 
-	int getGold() const {
-		return gold;
-	}
-
-	void setGold(int gold) {
-		this->gold = gold;
-	}
-
-	const std::vector<Item*>& getItems() const {
-		return items;
-	}
-
-	void setItems(const std::vector<Item*>& items) {
-		this->items = items;
-	}
+	int getGold() const;
+	void setGold(int gold);
+	const std::vector<Item*>& getItems() const;
+	void setItems(const std::vector<Item*>& items);
 
 private:
 	std::vector<Item*> items;

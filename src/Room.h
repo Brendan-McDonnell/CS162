@@ -21,9 +21,21 @@ public:
 	Room();
 	Room(char* name, char* description);
 	Room(char* name, char* description, Inventory inventory, map<const char*, Room*> exits);
-	Room(Room& source);
+	Room(const Room& source);
 	Room& operator=(const Room& source);
 	virtual ~Room();
+
+	bool isValid();
+	void print();
+
+	char* getDescription() const;
+	void setDescription(char* description);
+	const map<const char*, Room*>& getExits() const;
+	void setExits(const map<const char*, Room*>& exits);
+	const Inventory& getInventory() const;
+	void setInventory(const Inventory& inventory);
+	char* getName() const;
+	void setName(char* name);
 
 private:
 	char* name;

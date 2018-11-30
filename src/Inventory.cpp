@@ -16,18 +16,22 @@ Inventory::Inventory() {
 	gold = 0;
 }
 
-Inventory::Inventory(Inventory& source) : items(source.items.size()) {
+Inventory::Inventory(const Inventory& source) : items(source.items.size()) { // Initialize items for more efficient member copying
 	gold = source.gold;
 	for (size_t i = 0; i < source.items.size(); i++) {
 		items[i] = new Item(*source.items[i]);
 	}
 }
 
-Inventory& Inventory::operator=(const Inventory& source) : items(source.items.size()) {
-	if (*this == source) return this;
+Inventory& Inventory::operator=(const Inventory& source) {
+	if (this == &source) return *this;
 	gold = source.gold;
+	for (vector<Item*>::iterator it = items.begin(); it != items.end(); it++) {
+		delete *it;
+	}
+	items.clear();
 	for (size_t i = 0; i < source.items.size(); i++) {
-		items[i] = new Item(*source.items[i]);
+		items[i] = new Item(*source.items[i]); // Copy constructor functionality
 	}
 	return *this;
 }
@@ -51,6 +55,10 @@ Inventory::~Inventory() {
 		delete *it;
 }
 
+int Inventory::count() {
+	return items.size();
+}
+
 void Inventory::removeGold(int amount) {
 	gold -= amount;
 }
@@ -60,6 +68,13 @@ void Inventory::addGold(int amount) {
 }
 
 void Inventory::addItem(Item* item) {
+	// Up quantity if already have one, add new version otherwise
+	for (vector<Item*>::iterator it = items.begin(); it != items.end(); it++) {
+		if (*(*it)->getName() == *item->getName()) {
+			(*it)->incrementQuantity();
+			return;
+		}
+	}
 	items.push_back(item);
 }
 
@@ -89,4 +104,21 @@ void Inventory::clearItems() {
 		delete *it;
 		it = items.erase(it); // Returns iterator pointer to next element
 	}
+}
+
+// Getters and Setters
+int Inventory::getGold() const {
+	return gold;
+}
+
+void Inventory::setGold(int gold) {
+	this->gold = gold;
+}
+
+const std::vector<Item*>& Inventory::getItems() const {
+	return items;
+}
+
+void Inventory::setItems(const std::vector<Item*>& items) {
+	this->items = items;
 }
