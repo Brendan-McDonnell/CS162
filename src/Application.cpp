@@ -135,7 +135,8 @@ int main() {
 
 		// Check win condition
 		if (!gameOver) {
-			// TODO: UPdate win condition
+			Room* glade = getRoomFromRooms(rooms, "Glade");
+			if (glade->getInventory().count() >= 3) gameOver = true;
 		}
 		cout << "**********************************" << endl;
 	}
