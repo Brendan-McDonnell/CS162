@@ -20,6 +20,7 @@ class Room {
 public:
 	Room();
 	Room(char* name, char* description);
+	Room(char* name, char* description, Inventory inventory);
 	Room(char* name, char* description, Inventory inventory, map<const char*, Room*> exits);
 	Room(const Room& source);
 	Room& operator=(const Room& source);
@@ -30,9 +31,9 @@ public:
 
 	char* getDescription() const;
 	void setDescription(char* description);
-	const map<const char*, Room*>& getExits() const;
+	map<const char*, Room*>& getExits();
 	void setExits(const map<const char*, Room*>& exits);
-	const Inventory& getInventory() const;
+	Inventory& getInventory();
 	void setInventory(const Inventory& inventory);
 	char* getName() const;
 	void setName(char* name);

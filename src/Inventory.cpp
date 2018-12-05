@@ -36,6 +36,11 @@ Inventory& Inventory::operator=(const Inventory& source) {
 	return *this;
 }
 
+Inventory::Inventory(Item* item) {
+	gold = 0;
+	items.push_back(item);
+}
+
 Inventory::Inventory(int newgold) {
 	gold = newgold;
 }
@@ -121,4 +126,22 @@ const std::vector<Item*>& Inventory::getItems() const {
 
 void Inventory::setItems(const std::vector<Item*>& items) {
 	this->items = items;
+}
+
+bool Inventory::contains(char* name) {
+	for(vector<Item*>::iterator it = items.begin(); it != items.end(); it++) {
+		if (!strcmp(name, (*it)->getName())) return true;
+	}
+	return false;
+}
+
+Item* Inventory::takeItem(char* name) {
+	for (vector<Item*>::iterator it = items.begin(); it!= items.end(); it++) {
+		if (!strcmp(name, (*it)->getName())) {
+			Item* out = *it;
+			items.erase(it);
+			return out;
+		}
+	}
+	return NULL;
 }

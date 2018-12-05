@@ -34,6 +34,25 @@ Room::Room(char* name, char* description) {
 	exits.insert(pair<const char*, Room*>("WEST", nullptr));
 }
 
+Room::Room(char* name, char* description, Inventory inventory) {
+	cout << "Entered constructor" << endl;
+	delete[] this->name;
+	delete[] this->description;
+	this->name = new char[strlen(name) + 1];
+	this->description = new char[strlen(description) + 1];
+	strcpy(this->name, name);
+	strcpy(this->description, description);
+
+	cout << "Standard creation created." << endl;
+	this->inventory = inventory;
+	cout << "Inventory set" << endl;
+	exits.insert(pair<const char*, Room*>("NORTH", nullptr));
+	exits.insert(pair<const char*, Room*>("EAST", nullptr));
+	exits.insert(pair<const char*, Room*>("SOUTH", nullptr));
+	exits.insert(pair<const char*, Room*>("WEST", nullptr));
+	cout << "Finished constructor" << endl;
+}
+
 Room::Room(char* name, char* description, Inventory inventory,
 		map<const char*, Room*> exits) {
 	delete[] this->name;
@@ -80,22 +99,19 @@ bool Room::isValid() {
 		if (it->second == nullptr) out = false;
 	}
 
-	return out;;
+	return out;
 }
 
 void Room::print() {
-	cout << "ENTERED PRINT FUNCTION" << endl;
-	cout << &name << endl;
 	cout << name << endl;
 	cout << description << endl;
-	cout << "PRINTED BASIC INFO" << endl;
 	try {
-		cout << "The exits are: " << endl; // TODO: Breaks if pointing to null
-		cout << "test: " << &exits.at("NORTH") << endl;
-		cout << "\tNORTH: " << exits.at("NORTH")->getName() << endl; // map.at() is C++ 11 functionality.
-		cout << "\tEAST: " << exits.at("EAST")->getName() << endl;
-		cout << "\tSOUTH: " << exits.at("SOUTH")->getName() << endl;
-		cout << "\tWEST: " << exits.at("WEST")->getName() << endl;
+		cout << "The exits are: " << endl;
+		cout << exits.at("NORTH") << endl;
+		if(exits.at("NORTH") != nullptr) cout << "\tNORTH: " << exits.at("NORTH")->getName() << endl; // map.at() is C++ 11 functionality.
+		if(exits.at("EAST") != nullptr) cout << "\tEAST: " << exits.at("EAST")->getName() << endl;
+		if(exits.at("SOUTH") != nullptr) cout << "\tSOUTH: " << exits.at("SOUTH")->getName() << endl;
+		if(exits.at("WEST") != nullptr) cout << "\tWEST: " << exits.at("WEST")->getName() << endl;
 	} catch (...) {
 		cout << endl;
 		cout << "Failed to access exits..." << endl; // TODO: Proper bug handling
@@ -121,7 +137,7 @@ void Room::setDescription(char* description) {
 	strcpy(this->description, description);
 }
 
-const map<const char*, Room*>& Room::getExits() const {
+map<const char*, Room*>& Room::getExits() {
 	return exits;
 }
 
@@ -129,7 +145,7 @@ void Room::setExits(const map<const char*, Room*>& exits) {
 	this->exits = exits;
 }
 
-const Inventory& Room::getInventory() const {
+Inventory& Room::getInventory() {
 	return inventory;
 }
 
@@ -146,3 +162,4 @@ void Room::setName(char* name) {
 	this->name = new char[strlen(name) + 1];
 	strcpy(this->name, name);
 }
+
