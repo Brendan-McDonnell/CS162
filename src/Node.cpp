@@ -11,6 +11,7 @@
 Node::Node(Student* value, Node* previous, Node* next) {
 	this->value = value;
 	this->previous = previous;
+	if (previous) previous->setNext(this);
 	this->next = next;
 }
 

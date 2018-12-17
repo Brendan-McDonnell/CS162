@@ -11,7 +11,7 @@
 class Student {
 public:
 	Student();
-	Student(char* firstName, char* lastName, int id, float gpa);
+	Student(char* firstName = new char(0), char* lastName = new char(0), int id = 0, float gpa = 0);
 	virtual ~Student();
 	void print() const;
 	char* getFirstName() const;

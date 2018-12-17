@@ -10,11 +10,10 @@
 #include "Student.h"
 
 Student::Student() {
-	firstName = new char[0];
-	lastName = new char[0];
+	firstName = new char(0);
+	lastName = new char(0);
 	id = 0;
 	gpa = 0;
-	std::cout << "Student created (" << this << ")" << std::endl;
 }
 
 Student::Student(char* firstName, char* lastName, int id, float gpa) {
