@@ -19,7 +19,7 @@
 // Note: No built-in deep copying as that would copy entire LinkedList
 class Node {
 public:
-	Node(Student* value = nullptr, Node* previous = nullptr, Node* next = nullptr);
+	Node(Student* value = NULL, Node* previous = NULL, Node* next = NULL);
 	virtual ~Node(); // Destructs value and links the previous and next node together
 
 	Student* getValue() const; // Gets value at node
