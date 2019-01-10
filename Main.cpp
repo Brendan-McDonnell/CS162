@@ -29,7 +29,24 @@ int main() {
 				 << "AVERAGE: Prints the average GPA of all students" << endl;
 		}
 		else if (strcmp(command, Commands::Add) == 0) {
-			char* newFName = new char[ // TODO HERE
+			char FName[21];
+			char LName[21];
+			int id = 0;		
+			int gpa = 0;	
+			cout << "What is the first name?" << endl;
+			cin.getline(FName, 21);
+			cout << "What is the last name?" << endl;
+			cin.getline(LName, 21);
+			cout << "What is the six-digit id?" << endl;
+			char idBuffer[7];
+			cin.getline(idBuffer, 7);
+			id = _atoi(idBuffer);
+			cout << "What is the GPA?" << endl;
+			char gpaBuffer[5];
+			cin.getline(gpaBuffer, 5);
+			gpa = _atof(gpaBuffer);
+			
+			// TODO: CREATE NEW STUDENT AND ADD IT TO LINKEDLIST
 		}
 		else if (strcmp(command, Commands::Print) == 0) {
 			

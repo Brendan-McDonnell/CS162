@@ -13,13 +13,12 @@ public:
 	
 	void insert(Node* newNode);
 	void insert(Node* newNode, int targetPosition);
-	void insertAfter(Node* newNode, Node* targetNode);
-	void insertSorted(Node* newNode);
 	
 	void remove(Node* targetNode);
 	void remove(int targetPosition);
 	
 	void sort();
+	void printAll();
 	
 	Node* at(int index) const;
 	Node* operator[](int index);
