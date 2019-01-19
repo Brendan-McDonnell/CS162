@@ -9,11 +9,15 @@ class Student {
 		this->gpa = gpa;
 	}
 	
+	void print() {
+		std::cout << firstName << " " << lastName << ", " << id << ", " << gpa << std::endl;
+	}
+	
 	// Getters
-	char* getFirstName() { return firstName; }
-	char* getLastName() { return lastName; }
-	int getId() { return id; }
-	int getGpa() { return gpa; }
+	char* getFirstName() const { return firstName; }
+	char* getLastName() const { return lastName; }
+	int getId() const { return id; }
+	int getGpa() const { return gpa; }
 	
 	private:
 	char* firstName;

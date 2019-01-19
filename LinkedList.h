@@ -7,21 +7,34 @@
 class LinkedList {
 
 public:
-	LinkedList(Node* head = NULL, Node* tail = NULL);
-	LinkedList(const &LinkedList);
+	LinkedList();
+	LinkedList(Node* head = NULL);
+	//LinkedList(const &LinkedList);
 	virtual ~LinkedList();
-	
-	void insert(Node* newNode);
-	void insert(Node* newNode, int targetPosition);
+
+	void insert(Node* newNode) {
+		tail->setNext(newNode);
+		tail = newNode;
+	}
+	//void insert(Node* newNode, int targetPosition);
 	
 	void remove(Node* targetNode);
-	void remove(int targetPosition);
+	//void remove(int targetPosition);
 	
-	void sort();
-	void printAll();
+	void sort() {
+		
+	}
+	void printAll() {
+		
+	}
 	
-	Node* at(int index) const;
-	Node* operator[](int index);
+	Node* at(int index) const {
+		
+	}
+	//Node* operator[](int index);
+	
+	Node* getHead() const { return head; }
+	//Node* getTail() const { return tail; }
 	
 private:
 	Node* head;

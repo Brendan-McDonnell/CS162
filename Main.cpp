@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include "LinkedList.h"
 #include "Student.h"
 
 int main() {
@@ -13,6 +14,8 @@ int main() {
 		Quit = "QUIT",
 		Average = "AVERAGE"
 	};
+	
+	LinkedList list();
 	
 	bool isRunning = true;
 	while (isRunning) {
@@ -46,20 +49,40 @@ int main() {
 			cin.getline(gpaBuffer, 5);
 			gpa = _atof(gpaBuffer);
 			
-			// TODO: CREATE NEW STUDENT AND ADD IT TO LINKEDLIST
+			list.insert(new Student(FName, LName, id, gpa));
+			cout << "Student added." << endl;
 		}
 		else if (strcmp(command, Commands::Print) == 0) {
-			
+			list.printAll();
 		}
 		else if (strcmp(command, Commands::Delete) == 0) {
-			
+			cout << "What is the id of the student you want to delete?" << endl;
+			char idBuffer[7];
+			cin.getline(idBuffer, 7);
+			id = _atoi(idBuffer);
+			Node* curr = list.getHead();
+			while (curr && curr->getStudent()->getId() != id) curr = curr.getNext();
+			if (!curr) {
+				cout << "Student not found." << endl;
+			}
+			else {
+				list.delete(curr);
+				cout << "Student deleted" << endl;
+			}
 		}
 		else if (strcmp(command, Commands::Quit) == 0) {
 			cout << "Quitting program..." << endl;
 			isRunning = false;
 		}
 		else if (strcmp(command, Commands::Average) == 0) {
-			
+			Node* curr = list.head();
+			int studentCount = 0;
+			float totalGpa = 0.0;
+			while (curr) {
+				totalGpa += curr->getStudent()->getGpa();
+				++studentCount;
+				curr = curr->getNext();
+			}
 		}
 		else {
 			cout << "Command not recognized. Please try again." << endl;
@@ -68,6 +91,7 @@ int main() {
 	}
 	
 	// Garbage collection
+	delete list;
 	
 	return 0;
 }
