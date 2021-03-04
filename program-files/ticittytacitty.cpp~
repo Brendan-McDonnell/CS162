@@ -1,0 +1,43 @@
+#include <iostream>
+#include <cstring>
+
+using namespace std;
+
+const int BLANK = 0;
+const int X = 1;
+const int O = 2;
+
+int main() {
+  playGame();
+}
+
+int playGame() {
+  playGame(1);
+}
+
+int playGame(int turn) {
+  char board[3][3];
+  int winState = BLANK;
+  while (!(winstate = checkWin(board))) {
+
+  }
+}
+
+int checkWin(char board[][3]) {
+  struct WinChecker {
+    static bool checkCondition(int col, int colIncrement, int row, int rowIncrement) {
+      bool output = board[col][row];
+      for (; col < 3 && col >= 0; col += colIncrement) {
+	for (; row < 3 && row >= 0; row += rowIncrement) {
+	  if (output != board[col][row]) return false;
+	}
+      }
+    };
+  };
+
+  for (int i = 0; i < 3; i++) {
+    if (WinChecker::checkCondition(i, 1, 0, 1)) return board[i][0] == X ? X : O; // TODO DO THIS STUFF
+    if (WinChecker::checkCondition(0, 1, i, 1)) return board[0][i] == X ? X : O;
+    if (WinChecker::checkCondition(i, 1, i, 1)) return board[i][i] == X ? X : O;
+  }
+}
