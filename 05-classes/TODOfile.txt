@@ -1,0 +1,2 @@
+# Media.cpp --> overloaded insert operator
+Printing out Media* object if title has null terminating character
